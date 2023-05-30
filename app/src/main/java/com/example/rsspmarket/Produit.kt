@@ -1,11 +1,5 @@
 package com.example.rsspmarket
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.net.Uri
 
-class Produit : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.produit_activity)
-    }
-}
+data class Produit(var prix:Int,var description:String,var image: Int)

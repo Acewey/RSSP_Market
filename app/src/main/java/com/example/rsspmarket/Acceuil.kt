@@ -3,11 +3,11 @@ package com.example.rsspmarket
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.CountDownTimer
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 
 class Acceuil : AppCompatActivity() {
     override fun onDestroy() {
@@ -23,9 +23,53 @@ class Acceuil : AppCompatActivity() {
         val progress=findViewById<ProgressBar>(R.id.progressChargement)
         val fichierShared = getSharedPreferences("RSSP", Context.MODE_PRIVATE)
         val isConnected = fichierShared.getBoolean("estConnecte", false)
+        val intent:Intent
+        if (isConnected==false)
+             intent=  Intent(this,Authentification::class.java)
+        else
+            intent=  Intent(this,Produits::class.java)
 
-        val intent= if (isConnected==false) Intent(this,Authentification::class.java)
-                    else Intent(this,Produit::class.java)
+
+        // Créer un Handler pour le thread principal
+
+        val monThread=object:Thread() {
+            override fun run() {
+                super.run()
+                Looper.prepare()
+
+
+                while (true) {
+                    object : CountDownTimer(1000L, 1000L) {
+                        override fun onTick(millisUntilFinished: Long) {
+
+                        }
+
+                        override fun onFinish() {
+
+                            Toast.makeText(applicationContext, "TRRRRRRRRRRRR", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }.start()
+                }
+            }
+        }
+        monThread.start()
+            // Effectuer le travail en arrière-plan ici
+
+
+
+
+
+
+
+
+
+
+
+            // Envoyer un message au thread principal
+
+
+
 
 
 
